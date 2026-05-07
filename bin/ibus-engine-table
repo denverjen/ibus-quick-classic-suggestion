@@ -1,0 +1,19 @@
+#!/bin/sh
+prefix=/usr
+exec_prefix=/usr
+ENGINE_DIR=${HOME}/.local/share/ibus-table-local/engine
+export IBUS_TABLE_LOCATION=${HOME}/.local/share/ibus-table-local
+export IBUS_TABLE_LIB_LOCATION=${exec_prefix}/libexec
+export PYTHONPATH=${ENGINE_DIR}:${PYTHONPATH}
+
+for arg in $@; do
+	case $arg in
+	--xml | -x)
+		cd ${ENGINE_DIR} && exec /usr/bin/python3 main.py --xml;;
+	--help | -h)
+		cd ${ENGINE_DIR} && exec /usr/bin/python3 main.py $@;;
+	*)
+		cd ${ENGINE_DIR} && exec /usr/bin/python3 main.py $@
+		exit 0
+	esac
+done
